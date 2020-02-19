@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<forms:BaseContentPage
+             xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms" 
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Fourplaces.DTOs"
+             xmlns:model="clr-namespace:Fourplaces.Model"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Fourplaces.Views.ListeLieuxPage">
+
+    <forms:BaseContentPage.Resources>
+        <model:IdToURLConverter x:Key="IdToURLConverter"/>
+    </forms:BaseContentPage.Resources>
+
+    <forms:BaseContentPage.ToolbarItems>
+        <ToolbarItem Text="Ajouter un lieu" Command="{Binding GoAjouterLieu}"/>
+    </forms:BaseContentPage.ToolbarItems>
+    
+    <ListView ItemsSource="{Binding PlaceItems}"
+              SelectedItem="{Binding PlaceItemSelected, Mode=TwoWay}">
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="local:PlaceItemSummary">
+                <ViewCell>
+
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding ImageId, Converter={StaticResource IdToURLConverter}}"
+                               HeightRequest="60"
+                               WidthRequest="60"/>
+                        <Label Grid.Column="1"
+                           Text="{Binding Title}"
+                           FontAttributes="Bold" />
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</forms:BaseContentPage>
